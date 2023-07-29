@@ -1,0 +1,35 @@
+matrix = [["-","-","-"],
+["-","-","-"],
+["-","-","-"]]
+def pl(play_signal):
+    i = int(input("Введите строку"))
+    j = int(input("Введите солбец"))
+    matrix [i][j] = play_signal
+    if matrix[0][0] == play_signal and matrix[0][1] == play_signal and matrix[0][2] == play_signal:
+        print(play_signal, " Победил!")
+        return 
+    elif matrix[1][0] == play_signal and matrix[1][1] == play_signal and matrix[1][2] == play_signal:
+        print(play_signal, " Победил!")
+        return 
+    elif matrix[2][0] == play_signal and matrix[2][1] == play_signal and matrix[2][2] == play_signal:
+        print(play_signal, " Победил!")
+        return 
+    elif matrix[0][0] == play_signal and matrix[1][0] == play_signal and matrix[2][0] == play_signal:
+        print(play_signal, " Победил!")
+        return 
+    elif matrix[0][1] == play_signal and matrix[1][1] == play_signal and matrix[2][1] == play_signal:
+        print(play_signal, " Победил!")
+        return 
+    elif matrix[0][2] == play_signal and matrix[1][2] == play_signal and matrix[2][2] == play_signal:
+        print(play_signal, " Победил!")
+        return 
+    elif matrix[0][0] == play_signal and matrix[1][1] == play_signal and matrix[2][2] == play_signal:
+        print(play_signal, " Победил!")
+        return 
+    elif matrix[2][0] == play_signal and matrix[1][1] == play_signal and matrix[0][2] == play_signal:
+        print(play_signal, " Победил!")
+        return 
+    else:
+        print('\n'.join('\t'.join(map(str, row)) for row in matrix))
+    return pl(input("Кто ходит, Х или 0?"))
+pl(input("Кто ходит, X или 0?"))
