@@ -1,0 +1,59 @@
+matrix = [["-","-","-"],
+["-","-","-"],
+["-","-","-"]]
+def pl(play_signal):
+  while True:
+    i = int(input("Введите строку"))
+    if i > 2 or i < 0:
+      print("Вне диапазона")
+      continue
+    j = int(input("Введите солбец"))
+    if j > 2 or j < 0:
+      print("Вне диапазона")
+      continue
+      return i, j
+    matrix [i][j] = play_signal
+    if matrix[0][0] == play_signal and matrix[0][1] == play_signal and matrix[0][2] == play_signal:
+        print(play_signal, " победил!")
+        return False
+    elif matrix[1][0] == play_signal and matrix[1][1] == play_signal and matrix[1][2] == play_signal:
+        print(play_signal, " победил!")
+        return False
+    elif matrix[2][0] == play_signal and matrix[2][1] == play_signal and matrix[2][2] == play_signal:
+        print(play_signal, " победил!")
+        return False
+    elif matrix[0][0] == play_signal and matrix[1][0] == play_signal and matrix[2][0] == play_signal:
+        print(play_signal, " победил!")
+        return False
+    elif matrix[0][1] == play_signal and matrix[1][1] == play_signal and matrix[2][1] == play_signal:
+        print(play_signal, " победил!")
+        return False
+    elif matrix[0][2] == play_signal and matrix[1][2] == play_signal and matrix[2][2] == play_signal:
+        print(play_signal, " победил!")
+        return False
+    elif matrix[0][0] == play_signal and matrix[1][1] == play_signal and matrix[2][2] == play_signal:
+        print(play_signal, " победил!")
+        return False
+    elif matrix[2][0] == play_signal and matrix[1][1] == play_signal and matrix[0][2] == play_signal:
+        print(play_signal, " победил!")
+        return False
+    else:
+        print('\n'.join('\t'.join(map(str, row)) for row in matrix))
+        return True
+def stend():
+  print("Доброе пожаловать в игру крестики-нолики!")
+count = 0
+stend()
+while True:
+    count += 1
+    if count % 2 == 1:
+        print("Ходит крестик!")
+        if not pl("x"):
+            break
+    else:
+        print("Ходит нолик!")
+        if not pl("0"):
+            break
+    if count == 9:
+        print("Ничья!")
+        break
