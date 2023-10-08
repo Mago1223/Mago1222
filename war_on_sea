@@ -1,0 +1,152 @@
+import random
+import numpy as np
+
+matrix = np.array([['0' for col in range(6)] for row in range(6)])
+matrix_PC = np.array([['0' for col in range(6)] for row in range(6)])
+matrix_PC_pul = np.array([['0' for col in range(6)] for row in range(6)])
+#карта PC
+def show_PC():
+    print(f"  0 1 2 3 4 5")
+    for j in range(6):
+        row_info = " ".join(matrix_PC[j])
+        print(f"{j} {row_info}")
+def show_PCpul():
+    print(f"  0 1 2 3 4 5")
+    for j in range(6):
+        row_info = " ".join(matrix_PC_pul[j])
+        print(f"{j} {row_info}")
+
+#карта игрока
+def show_play():
+    print(f"  0 1 2 3 4 5")
+    for i in range(6):
+        row_info = " ".join(matrix[i])
+        print(f"{i} {row_info}")
+
+def chek_row(row, col):
+    if matrix_PC[row][col] == signal or matrix_PC[row+1][col] == signal or matrix_PC[row+2][col] == signal:
+        return place_zero1(matrix_PC,lives)
+    return matrix_PC
+def chek_col(row, col):
+    if matrix_PC[row][col] == signal or matrix_PC[row][col+1] == signal or matrix_PC[row][col+1] == signal:
+        return place_zero1(matrix_PC,lives)
+    return matrix_PC
+
+#расставление кораблей PC
+def place_zero1(matrix_PC,lives):
+    random_choice = np.random.randint(2)
+    row = np.random.randint(5 if random_choice == 0 else 4)
+    col = np.random.randint(5 if random_choice == 1 else 4)
+    cnt = 0
+    print(row, col, random_choice)
+    while cnt != 1:
+        if random_choice == 1:
+            matrix_PC = chek_row(row, col)
+            if lives == 3:
+              matrix_PC[row][col] = signal
+              matrix_PC[row+1][col] = signal
+              matrix_PC[row+2][col] = signal
+              cnt += 1
+            elif lives == 2:
+              matrix_PC[row][col] = signal
+              matrix_PC[row+1][col] = signal
+              cnt += 1
+            else:
+              matrix_PC[row][col] = signal
+              cnt += 1
+        else:
+            matrix_PC = chek_col(row, col)
+            if lives == 3:
+              matrix_PC[row][col] = signal
+              matrix_PC[row][col+1] = signal
+              matrix_PC[row][col+2] = signal
+              cnt += 1
+            elif lives == 2:
+              matrix_PC[row][col] = signal
+              matrix_PC[row][col+1] = signal
+              cnt += 1
+            else:
+              matrix_PC[row][col] = signal
+              cnt += 1
+        return matrix_PC
+
+class ship_pc:
+  def __init__(self,name):
+    self.name = name
+  def ship_board_pc(self,name,ship_health,lives,matrix):
+    self.name = name
+    self.ship_health = ship_health
+    self.lives = lives
+    place_zero1(matrix,lives)
+#расставление кораблей игрока
+class ship:
+  def __init__(self,name):
+    self.name = name
+  def ship_board(self,name,ship_health,lives):
+    self.name = name
+    self.ship_health = ship_health
+    self.lives = lives
+    const_row = {}
+    const_col = {}
+    const = {}
+    consta = 0
+    while len(set(const)) != lives:
+      if len(set(const)) != lives:
+        print(f' Разместите корабль {name} ')
+        row, col = map(int, input().split())
+        const_row[row] = row
+        const_col[col] = col
+        if len(set(const_row)) == 1 or len(set(const_col)) == 1:
+          consta += 1
+          const[consta] = consta
+          matrix[row][col] = ship_health
+        else:
+          print("Корабль должен быть целым! Выберите соседнюю точку:")
+          const_row.popitem()
+          const_col.popitem()
+          continue
+          return row, col
+      else:
+        matrix[row][col] = ship_health
+#Для обнуления карты
+def start_new_game():
+  a = input("Если хотите очистить доску игрока, введите 99. Если хотите очистить доску PC, введите 88")
+  if a == 99:
+    matrix = [["0"] * 6 for i in range(6) ]
+    print(matrix)
+  elif a == 88:
+    matrix_PC = [["0"] * 6 for i in range(6) ]
+    print(matrix_PC)
+  else:
+    return matrix, matrix_PC
+
+#выстрелы по карте PC
+def pl(play_signal):
+  while True:
+    row, col = map(int, input("         Шмаляй! ").split())
+    if matrix_PC [row][col] == "■":
+      matrix_PC [row][col] = "Т"
+      matrix_PC_pul [row][col] = "Т"
+      print("Попал!")
+      show_PCpul()
+    else:
+      matrix_PC_pul[row][col] = play_signal
+      print("Мимо!")
+      show_PCpul()
+    continue
+    return matrix_PC
+
+#выстрелы по карте игрока
+def pl_PC(play_signal):
+  while True:
+    random_choice = np.random.randint(2)
+    row = np.random.randint(5 if random_choice == 0 else 4)
+    col = np.random.randint(5 if random_choice == 1 else 4)
+    if matrix [row][col] == "■":
+      matrix [row][col] = "Т"
+      print("Противник попал!")
+    else:
+      matrix[row][col] = play_signal
+      print("Противник промахнулся!")
+    continue
+    return matrix
